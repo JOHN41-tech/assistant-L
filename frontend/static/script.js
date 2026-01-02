@@ -174,6 +174,43 @@ if (sidebarOverlay) {
     });
 }
 
+// Swipe Gestures for Mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+function handleGesture(sidebar, direction) {
+    const swipeDistance = touchEndX - touchStartX;
+    if (direction === 'rtl' && swipeDistance < -50) {
+        // Swipe Right to Left -> Close Left Sidebar
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
+    } else if (direction === 'ltr' && swipeDistance > 50) {
+        // Swipe Left to Right -> Close Right Sidebar
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
+    }
+}
+
+if (leftSidebar) {
+    leftSidebar.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    leftSidebar.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleGesture(leftSidebar, 'rtl');
+    });
+}
+
+if (rightSidebar) {
+    rightSidebar.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    rightSidebar.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleGesture(rightSidebar, 'ltr');
+    });
+}
+
 function switchTab(tabName) {
     tabBtns.forEach(btn => btn.classList.remove('active'));
     tabContents.forEach(content => content.classList.remove('active'));
@@ -560,7 +597,14 @@ async function sendChat() {
 function addChatMessage(role, message) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${role}`;
-    messageDiv.textContent = message;
+
+    // Clean text by removing markdown characters (* and #)
+    const cleanedMessage = message
+        .replace(/[*#]/g, '') // Remove all * and #
+        .replace(/\n\s*\n/g, '\n') // Remove extra empty lines
+        .trim();
+
+    messageDiv.textContent = cleanedMessage;
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
