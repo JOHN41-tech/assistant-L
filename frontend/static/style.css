@@ -1428,3 +1428,22 @@ input[type="text"]:focus {
         padding: 20px;
     }
 }
+/* FINAL MOBILE FIXES */
+@media (max-width: 600px) {
+    .right-sidebar { width: 100% !important; }
+    .sidebar { width: 85% !important; }
+    h1 { font-size: 1.8rem !important; }
+    .subtitle { font-size: 0.95rem !important; }
+    .intro-title { font-size: 2rem !important; letter-spacing: 5px !important; }
+    .intro-logo img { width: 120px !important; height: 120px !important; }
+    .main-logo { width: 80px !important; height: 80px !important; }
+    .stats-dashboard { flex-direction: column !important; gap: 10px !important; }
+    .stat-item { min-width: unset !important; width: 100% !important; }
+    .welcome-card { padding: 25px 20px !important; }
+    .advanced-options { flex-direction: column !important; gap: 15px !important; }
+    .input-group { flex-direction: column !important; }
+    .btn-primary { width: 100% !important; justify-content: center !important; }
+    input[type="text"] { width: 100% !important; }
+    .learning-header, .learning-body { padding: 15px !important; }
+    .guide-card, .step-card { padding: 20px !important; }
+}
