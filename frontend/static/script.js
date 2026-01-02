@@ -742,6 +742,12 @@ function resetToStart() {
     notesTextarea.value = '';
     chatMessages.innerHTML = '';
     quizContent.innerHTML = '';
+
+    // Clear mobile UI states
+    if (leftSidebar) leftSidebar.classList.remove('open');
+    if (rightSidebar) rightSidebar.classList.remove('open');
+    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+
     loadStats(); // Reload stats when going back home
 }
 
